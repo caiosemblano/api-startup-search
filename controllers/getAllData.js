@@ -1,7 +1,9 @@
-import { startups } from '../data/data.js'
+import fs from 'fs'
+
 
 export const getAllData = (req, res) => {
 
+  const startups = JSON.parse(fs.readFileSync('./data/data.json', 'utf-8'))
   let filteredData = startups
 
   const { industry, country, continent, is_seeking_funding, has_mvp } = req.query

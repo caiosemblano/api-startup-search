@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Este projeto contém o código desenvolvido durante meus estudos introdutórios sobre Express.js. O objetivo deste projeto foi compreender os fundamentos da criação de APIs e o funcionamento do protocolo HTTP no ambiente Node.js.",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
