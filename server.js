@@ -7,7 +7,7 @@ const PORT = 8000
 const app = express()
 
 app.use(cors())
-
+app.use(express.json())
 app.use('/api', apiRouter)
 
 app.use((req, res) => {
