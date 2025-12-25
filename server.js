@@ -1,6 +1,11 @@
 import express from 'express'
 import { apiRouter } from './routes/apiRoutes.js'
 import cors from 'cors'
+import dotenv from 'dotenv'
+import { connectDB } from './config/db.js'
+
+dotenv.config() // carrega as variáveis de ambiente do arquivo .env
+
 
 const PORT = 8000
 
