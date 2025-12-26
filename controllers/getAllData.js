@@ -1,9 +1,9 @@
-import fs from 'fs'
+import Startup from '../models/Startup.js'
 
 
-export const getAllData = (req, res) => {
+export const getAllData = async (req, res) => {
 
-  const startups = JSON.parse(fs.readFileSync('./data/data.json', 'utf-8'))
+  const startups = await Startup.find()
   let filteredData = startups
 
   const { industry, country, continent, is_seeking_funding, has_mvp } = req.query

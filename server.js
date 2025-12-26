@@ -6,8 +6,9 @@ import { connectDB } from './config/db.js'
 
 dotenv.config() // carrega as variáveis de ambiente do arquivo .env
 
+const PORT = process.env.PORT || 8000
 
-const PORT = 8000
+connectDB()
 
 const app = express()
 

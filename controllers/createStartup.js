@@ -3,21 +3,8 @@ import path from "path"
 
 export const createStartup = async (req, res) => {
     try {
-        let newStartup = req.body
-
-        const __filename = new URL(import.meta.url).pathname
-        const __dirname = path.dirname(__filename)
-        const filePath = path.join(__dirname, '..', 'data', 'data.json')
-
-        const data = await fs.readFile(filePath, 'utf-8')
-        const startups = JSON.parse(data)
-        const startupId = startups.length + 1
-
-        newStartup.id = startupId
-        validateStartup(newStartup)
-        startups.push(newStartup)
-
-        await fs.writeFile(filePath, JSON.stringify(startups))
+        validateStartup(req.body)
+        let newStartup = await Startup.create(req.body)
         res.status(201).json(newStartup)
 
     } catch (err) {
