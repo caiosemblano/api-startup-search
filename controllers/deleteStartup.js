@@ -1,25 +1,8 @@
-import fs from "fs/promises"
-import path from "path"
+import Startup from '../models/Startup.js'
 
 export const deleteStartup = async (req, res) => {
     try {
-        const { id } = req.params
-        const __filename = new URL(import.meta.url).pathname
-        const __dirname = path.dirname(__filename)
-        const filePath = path.join(__dirname, '..', 'data', 'data.json')
-
-        const data = await fs.readFile(filePath, 'utf-8')
-        const startups = JSON.parse(data)
-
-        const startupIndex = startups.findIndex(startup => startup.id === parseInt(id))
-
-        if (startupIndex === -1) {
-            return res.status(404).json({ message: 'Startup not found' })
-        }
-
-        startups.splice(startupIndex, 1)
-
-        await fs.writeFile(filePath, JSON.stringify(startups))
+        await Startup.findByIdAndDelete(req.params.id)
         res.status(204).json()
 
     } catch (err) {
