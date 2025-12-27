@@ -1,6 +1,4 @@
-import { error } from "console"
-import fs from "fs/promises"
-import path from "path"
+import Startup from "../models/Startup.js"
 
 export const createStartup = async (req, res) => {
     try {
@@ -15,9 +13,9 @@ export const createStartup = async (req, res) => {
 }
 
 function validateStartup(startup) {
-    const { name, industry, country, continent, is_seeking_funding, has_mvp } = startup
+    const { name, industry, country, continent } = startup
 
-    if (!name || !industry || !country || !continent || !is_seeking_funding || !has_mvp) {
+    if (!name || !industry || !country || !continent) {
         throw new Error('Missing required fields')
     }
 }
