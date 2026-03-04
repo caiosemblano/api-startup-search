@@ -2,42 +2,31 @@ import Startup from '../models/Startup.js'
 
 
 export const getAllData = async (req, res) => {
-
-  const startups = await Startup.find()
-  let filteredData = startups
-
   const { industry, country, continent, is_seeking_funding, has_mvp } = req.query
 
+  const query = {}
+
   if (industry) {
-    filteredData = filteredData.filter(startup =>
-      startup.industry.toLowerCase() === industry.toLowerCase()
-    )
+    query.industry = { $regex: `^${industry}$`, $options: 'i' }
   }
 
   if (country) {
-    filteredData = filteredData.filter(startup =>
-      startup.country.toLowerCase() === country.toLowerCase()
-    )
+    query.country = { $regex: `^${country}$`, $options: 'i' }
   }
 
   if (continent) {
-    filteredData = filteredData.filter(startup =>
-      startup.continent.toLowerCase() === continent.toLowerCase()
-    )
+    query.continent = { $regex: `^${continent}$`, $options: 'i' }
   }
 
   if (is_seeking_funding) {
-    filteredData = filteredData.filter(startup =>
-      startup.is_seeking_funding === JSON.parse(is_seeking_funding.toLowerCase())
-    )
+    query.is_seeking_funding = JSON.parse(is_seeking_funding.toLowerCase())
   }
 
   if (has_mvp) {
-    filteredData = filteredData.filter(startup =>
-      startup.has_mvp === JSON.parse(has_mvp.toLowerCase())
-    )
+    query.has_mvp = JSON.parse(has_mvp.toLowerCase())
   }
 
-  res.json(filteredData)
+  const startups = await Startup.find(query)
 
+  res.json(startups)
 }
